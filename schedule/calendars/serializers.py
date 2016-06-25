@@ -6,6 +6,7 @@ class MeetingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Meeting
         fields = '__all__'
+        readonly_fields = ('slug', 'created', 'modified')
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
