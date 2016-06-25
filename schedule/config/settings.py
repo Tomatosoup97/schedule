@@ -57,7 +57,8 @@ DEFAULT_APPS = [
 
 LOCAL_APPS = [
     'core',
-    'api',
+    'calendars',
+    'crawler',
 ]
 
 THIRD_PARTY_APPS = [
