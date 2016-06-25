@@ -81,7 +81,7 @@ class Category(models.Model):
         _('color'),
         choices = COLORS,
         max_length=20,
-        default='white',)
+        default='white')
 
     class Meta:
         verbose_name = _('catagory')
