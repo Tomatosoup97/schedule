@@ -1,6 +1,11 @@
 from rest_framework import serializers
 
-from .models import Meeting, Category, Tag
+from .models import Meeting, Category, Tag, Suggestion
+
+class SuggestionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Suggestion
+        fields = ('id', 'title', 'description', 'user')
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
@@ -13,6 +18,9 @@ class TagSerializer(serializers.ModelSerializer):
         fields = ('id', 'name')
 
 class MeetingSerializer(serializers.ModelSerializer):
+    category = CategorySerializer()
+    suggestions = SuggestionSerializer()
+
     class Meta:
         model = Meeting
         fields = '__all__'
@@ -20,5 +28,5 @@ class MeetingSerializer(serializers.ModelSerializer):
 
     def validate(self, data):
         if data['start'] > data['end']:
-            raise serializers.ValidationError('End must be later than start')
+            raise serializers.ValidationError(_('End must be later than start'))
         return data

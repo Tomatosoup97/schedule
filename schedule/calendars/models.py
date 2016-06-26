@@ -34,6 +34,7 @@ class Meeting(TimeStampedModel):
     hosts = models.ManyToManyField(settings.AUTH_USER_MODEL, db_index=True)
     clients = models.ManyToManyField(ClientProfile, db_index=True, blank=True)
 
+    suggestions = models.ManyToManyField('Suggestion', blank=True)
     tags = models.ManyToManyField('Tag', verbose_name=_('tags'), blank=True)
     category = models.ForeignKey(
         'Category', verbose_name=_('category'), blank=True)
@@ -60,6 +61,21 @@ class Meeting(TimeStampedModel):
     def __str__(self):
         return self.title
 
+class Suggestion(models.Model):
+    """
+    Suggestion made by Client
+    """
+    title = models.CharField(_('title'), max_length=80, unique=True)
+    description = models.TextField(_('description'))
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, db_index=True)
+
+    class Meta:
+        verbose_name = _('suggestion')
+        verbose_name_plural = _('suggestions')
+
+    def __str__(self):
+        return self.title
+
 class Category(models.Model):
     COLORS = (
             ('white', _('white')),
@@ -78,7 +94,7 @@ class Category(models.Model):
         default='white')
 
     class Meta:
-        verbose_name = _('catagory')
+        verbose_name = _('category')
         verbose_name_plural = _('categories')
 
     def __str__(self):
