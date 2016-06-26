@@ -6,17 +6,23 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = BasicUser
         fields = (
-            'id', 'last_login', 'username', 'first_name',
-            'last_name', 'email', 'date_joined',)
+            'id', 'last_login', 'username', 'password', 'first_name',
+            'last_name', 'email', 'date_joined', 'is_staff', 'is_active',
+            'groups', 'user_permissions')
         read_only_fields = (
-            'last_login','date_joined')
+            'last_login','date_joined', 'is_staff',
+            'is_active', 'user_permissions', 'groups')
 
 class ClientProfileSerializer(serializers.ModelSerializer):
-	class Meta:
-		model = ClientProfile
-		fields = ('id',)
+    user = UserSerializer()
+
+    class Meta:
+        model = ClientProfile
+        fields = ('id', 'user')
 
 class HostProfileSerializer(serializers.ModelSerializer):
-	class Meta:
-		model = HostProfile
-		fields = ('id',)
+    user = UserSerializer()
+
+    class Meta:
+        model = HostProfile
+        fields = ('id', 'user')
