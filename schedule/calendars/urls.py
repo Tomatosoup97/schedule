@@ -6,6 +6,7 @@ from . import views
 
 router = routers.DefaultRouter()
 router.register(r'meetings', views.MeetingViewSet)
+router.register(r'suggestions', views.SuggestionViewSet)
 router.register(r'categories', views.CategoryViewSet)
 router.register(r'tags', views.TagViewSet)
 

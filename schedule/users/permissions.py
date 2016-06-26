@@ -2,6 +2,11 @@ from rest_framework import permissions
 
 from calendars.models import Meeting
 
+class IsOwner(permissions.BasePermission):
+    """ Check if user is owner of object """
+    def has_object_permission(self, request, view, obj):
+        return request.user == obj.owner
+
 class IsSuperUser(permissions.BasePermission):
     """ Check if user is Super User """
     def has_permission(self, request, view):
@@ -17,4 +22,5 @@ class IsHost(permissions.BasePermission):
 class IsClient(permissions.BasePermission):
     """ Check if user is Client """
     def has_permission(self, request, view):
-        return user.is_authenticated() and hasattr(request.user, 'client')
+        user = request.user
+        return user.is_authenticated() and hasattr(user, 'client')

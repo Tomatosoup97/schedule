@@ -17,7 +17,8 @@ class Meeting(TimeStampedModel):
     """
     title = models.CharField(_('title'), max_length=100, db_index=True)
     description = models.TextField(_('description'))
-    image = models.ImageField(_('image'), upload_to='meeting/%Y/%m', blank=True)
+    image = models.ImageField(_('image'),
+        upload_to='meeting/%Y/%m', null=True, blank=True)
     location = models.CharField(_('location'), max_length=100, blank=True)
 
     start = models.DateTimeField(_('start of the meeting'), db_index=True)
@@ -34,10 +35,12 @@ class Meeting(TimeStampedModel):
     hosts = models.ManyToManyField(settings.AUTH_USER_MODEL, db_index=True)
     clients = models.ManyToManyField(ClientProfile, db_index=True, blank=True)
 
-    suggestions = models.ManyToManyField('Suggestion', blank=True)
-    tags = models.ManyToManyField('Tag', verbose_name=_('tags'), blank=True)
+    tags = models.ManyToManyField(
+        'Tag', verbose_name=_('tags'),
+        blank=True, related_name='meetings')
     category = models.ForeignKey(
-        'Category', verbose_name=_('category'), blank=True)
+        'Category', verbose_name=_('category'),
+        blank=True, related_name='meetings')
 
     slug = models.SlugField(_('url name'), editable=False)
 
@@ -67,7 +70,10 @@ class Suggestion(models.Model):
     """
     title = models.CharField(_('title'), max_length=80, unique=True)
     description = models.TextField(_('description'))
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, db_index=True)
+    owner = models.ForeignKey(
+        settings.AUTH_USER_MODEL, db_index=True, editable=False)
+    meeting = models.ForeignKey(
+        Meeting, related_name='suggestion', verbose_name=_('meeting'))
 
     class Meta:
         verbose_name = _('suggestion')
