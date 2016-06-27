@@ -18,7 +18,7 @@ class ClientProfile(models.Model):
         related_name='client')
 
     def __str__(self):
-        return self.first_name + self.last_name + 'Client'
+        return self.user.first_name + self.user.last_name + 'Client'
 
 class HostProfile(models.Model):
     """
@@ -29,4 +29,4 @@ class HostProfile(models.Model):
         related_name='host')
 
     def __str__(self):
-        return self.first_name + self.last_name + 'Host'
+        return self.user.first_name + self.user.last_name + 'Host'

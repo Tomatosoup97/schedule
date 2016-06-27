@@ -34,7 +34,7 @@ class IsMeetingClient(IsClient):
 class IsMeetingHost(IsHost):
     """
     Check if user is meeting's host.
-    Allows nested object inspection
+    Nested object inspection allowed
     """
     def has_object_permission(self, request, view, obj):
         user = request.user

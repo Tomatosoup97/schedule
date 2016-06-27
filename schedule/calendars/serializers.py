@@ -40,4 +40,7 @@ class MeetingSerializer(serializers.ModelSerializer):
     def validate(self, data):
         if data['start'] > data['end']:
             raise serializers.ValidationError(_('End must be later than start'))
+        if data['private'] is True and data['public'] is True:
+            raise serializer.ValidationError(
+                _('Meeting can not be both private and public'))
         return data

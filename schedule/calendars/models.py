@@ -6,7 +6,7 @@ from django.db import models
 
 from slugify import slugify
 
-from users.models import ClientProfile
+from users.models import ClientProfile, HostProfile
 from core.models import TimeStampedModel
 
 class Meeting(TimeStampedModel):
@@ -32,7 +32,7 @@ class Meeting(TimeStampedModel):
         help_text=_('mark if you want this meeting to be public' \
                     ' (visible for everyone)'))
 
-    hosts = models.ManyToManyField(settings.AUTH_USER_MODEL, db_index=True)
+    hosts = models.ManyToManyField(HostProfile, db_index=True)
     clients = models.ManyToManyField(ClientProfile, db_index=True, blank=True)
 
     tags = models.ManyToManyField(
@@ -40,14 +40,13 @@ class Meeting(TimeStampedModel):
         blank=True, related_name='meetings')
     category = models.ForeignKey(
         'Category', verbose_name=_('category'),
-        blank=True, related_name='meetings')
+        blank=True, null=True, related_name='meetings')
 
     slug = models.SlugField(_('url name'), editable=False)
 
     class Meta:
         verbose_name = _('meeting')
         verbose_name_plural = _('meetings')
-        unique_together = ('private', 'public')
         ordering = ['start']
 
     def duration(self):
@@ -92,7 +91,7 @@ class Category(models.Model):
             ('yellow', _('yellow')),
         )
 
-    name = models.CharField(_('name'), max_length=80)
+    name = models.CharField(_('name'), max_length=80, unique=True)
     color = models.CharField(
         _('color'),
         choices = COLORS,
