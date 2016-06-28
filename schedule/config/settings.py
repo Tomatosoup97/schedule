@@ -59,7 +59,6 @@ LOCAL_APPS = [
     'core',
     'users',
     'calendars',
-    'crawler',
 ]
 
 THIRD_PARTY_APPS = [

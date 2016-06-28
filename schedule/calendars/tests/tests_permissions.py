@@ -93,7 +93,6 @@ class TestMeetingClientPermissions(MockedAPITestCase):
             )
         )
 
-
 class TestPrivacyPermissions(MockedAPITestCase):
     """
     Test IsPublic and IsPrivate permissions

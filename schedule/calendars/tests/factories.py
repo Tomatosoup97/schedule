@@ -30,6 +30,8 @@ class MeetingFactory(DjangoModelFactory):
 
     @factory.post_generation
     def hosts(self, create, extracted, **kwargs):
+        # Add hosts passed as an argument
+        # syntax: Factory.create(host(host1, host2))
         if not create:
             self.hosts.add(HostFactory())
 
