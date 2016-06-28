@@ -90,8 +90,8 @@ class TagViewSet(viewsets.ModelViewSet):
     permission_classes = [Or(
         IsSafeMethod,
         And(
-            IsHost,
             IsPOST,
+            IsHost,
         ),
         IsAdminUser,
     )]
