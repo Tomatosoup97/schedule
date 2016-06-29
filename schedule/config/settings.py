@@ -42,6 +42,7 @@ ALLOWED_HOSTS = ['*']
 
 AUTH_USER_MODEL = 'users.BasicUser'
 
+
 # TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
 NOSE_ARGS = [
@@ -70,9 +71,10 @@ LOCAL_APPS = [
 
 THIRD_PARTY_APPS = [
     'debug_toolbar',
-    'rest_framework',
     'django_nose',
     'django_coverage',
+    'rest_framework',
+    'rest_framework_swagger',
 ]
 
 ALLAUTH_APPS = [

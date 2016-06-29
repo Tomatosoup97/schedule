@@ -18,6 +18,7 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^docs/', include('rest_framework_swagger.urls')),
     #url(r'wall/', include('wall.urls', namespace='wall')),
     url(r'^', include('calendars.urls', namespace='calendar')),
     url(r'^', include('users.urls', namespace='users')),
