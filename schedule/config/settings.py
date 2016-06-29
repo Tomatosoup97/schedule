@@ -19,7 +19,7 @@ with open("config/secrets.json") as file:
     secrets = json.load(file)
 
 def get_setting(setting, secrets=secrets):
-    """ Get the secret variable or throw explicit exception """
+    """ Get the secret variable or throw exception """
     try:
         return secrets[setting]
     except KeyError:
@@ -41,6 +41,13 @@ DEBUG = False
 ALLOWED_HOSTS = ['*']
 
 AUTH_USER_MODEL = 'users.BasicUser'
+
+# TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
+NOSE_ARGS = [
+    '--with-coverage',
+    '--cover-package=calendars,core,users',
+]
 
 # Application definition
 
@@ -64,6 +71,8 @@ LOCAL_APPS = [
 THIRD_PARTY_APPS = [
     'debug_toolbar',
     'rest_framework',
+    'django_nose',
+    'django_coverage',
 ]
 
 ALLAUTH_APPS = [
