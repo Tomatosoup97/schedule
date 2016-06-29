@@ -10,5 +10,9 @@ router.register(r'hosts', views.HostProfileViewSet)
 router.register(r'clients', views.ClientProfileViewSet)
 
 urlpatterns = [
+    url(r'^users/me/$',
+        views.UserCurrentView.as_view(),
+        name='users-current'),
+    url(r'^', include(router.urls)),
     url(r'^', include(router.urls)),
 ]

@@ -8,10 +8,11 @@ class UserSerializer(serializers.ModelSerializer):
         fields = (
             'id', 'last_login', 'username', 'password', 'first_name',
             'last_name', 'email', 'date_joined', 'is_staff', 'is_active',
-            'groups', 'user_permissions')
+            'groups', 'user_permissions', 'host', 'client')
         read_only_fields = (
             'last_login','date_joined', 'is_staff',
-            'is_active', 'user_permissions', 'groups')
+            'is_active', 'user_permissions', 'groups',
+            'host', 'client')
 
 class ClientProfileSerializer(serializers.ModelSerializer):
     user = UserSerializer()
